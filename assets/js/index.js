@@ -1,7 +1,7 @@
 var React = require('react')
 var ReactDOM = require('react-dom')
 
-var BooksList = React.createClass({
+var VideoList = React.createClass({
     loadBooksFromServer: function () {
         $.ajax({
             url: this.props.url,
@@ -19,26 +19,26 @@ var BooksList = React.createClass({
 
     componentDidMount: function () {
         this.loadBooksFromServer();
-        setInterval(this.loadBooksFromServer,
-            this.props.pollInterval)
+        // setInterval(this.loadBooksFromServer,
+        //     this.props.pollInterval)
     },
     render: function () {
         if (this.state.data) {
             console.log('DATA!')
-            var bookNodes = this.state.data.map(function (book) {
-                return <li> {book.title} </li>
+            var videoNodes = this.state.data.map(function (video) {
+                return <li> {video.lpid} </li>
             })
         }
         return (
             <div>
-                <h1>Hello React!</h1>
+                <h1>Video List</h1>
                 <ul>
-                    {bookNodes}
+                    {videoNodes}
                 </ul>
             </div>
         )
     }
 })
 
-ReactDOM.render(<BooksList url='/api/' pollInterval={1000} />,
+ReactDOM.render(<VideoList url='/api/videos' pollInterval={60000} />,
     document.getElementById('container'))

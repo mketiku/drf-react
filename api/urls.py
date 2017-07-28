@@ -1,7 +1,10 @@
 from django.conf.urls import url
+from rest_framework import routers
 
-from . import views
+from api.views import videos
 
-urlpatterns = [
-    url(r'^$', views.BookList.as_view(), name='book-list'),
-]
+urlpatterns = []
+
+router = routers.DefaultRouter()
+router.register(r'videos', videos.VideoViewSet, base_name="videos")
+urlpatterns = urlpatterns + router.urls

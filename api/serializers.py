@@ -1,10 +1,47 @@
 from rest_framework import serializers
 
-from .models import Book
+class MediaSerializer(serializers.Serializer):
+    apn = serializers.CharField(max_length=800)
+    lpid = serializers.CharField(max_length=200)
+    title = serializers.CharField(max_length=200)
+    name = serializers.CharField(max_length=200)
+    is_public = serializers.BooleanField(default=False)
+    pcs_actions_log = serializers.CharField(max_length=None)
+    category = serializers.CharField(max_length=None)
+    chamber = serializers.CharField(max_length=None)
+    committee = serializers.CharField(max_length=None)
+    session_year = serializers.CharField(max_length=None)
+    location = serializers.CharField(max_length=800)
+    date = serializers.DateField()
+    captioned = serializers.BooleanField(default=False)
+    referencetype = serializers.CharField(max_length=None)
+    referenceid = serializers.CharField(max_length=None)
 
+class DaySerializer(serializers.Serializer):
+    lpid = serializers.CharField(max_length=800)
+    status = serializers.CharField(max_length=800)
+    name = serializers.CharField(max_length=800)
+    sessionid = serializers.CharField(max_length=800)
+    daynum = serializers.IntegerField()
+    chamberid = serializers.CharField(max_length=800)
+    starttime = serializers.CharField(max_length=800)
+    endtime = serializers.CharField(max_length=800)
+    date = serializers.DateField()
+    current = serializers.BooleanField(default=False)
+    public = serializers.BooleanField(default=False)
+    voteday = serializers.BooleanField(default=False)
 
-class BookSerializer(serializers.ModelSerializer):
+class MeetingSerializer(serializers.Serializer):
+    lpid = serializers.CharField(max_length=800)
+    chamberid = serializers.CharField(max_length=800)
+    sessionid= serializers.CharField(max_length=800)
+    status = serializers.CharField(max_length=800)
+    meetingDate = serializers.CharField(source="mtgdate")
+    # committee = CommitteeLinkSerializer()
+    location = serializers.CharField(source="location_name")
+    starttime = serializers.CharField()
+    endtime = serializers.CharField()
+    cancelled = serializers.CharField()
+    agenda = serializers.SerializerMethodField('serialize_agenda')
+    posted = serializers.DateTimeField(source='posteddt')
 
-    class Meta:
-        model = Book
-        fields = ('title', 'author')
