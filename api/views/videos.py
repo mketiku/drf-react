@@ -64,9 +64,23 @@ class VideoViewSet(viewsets.GenericViewSet):
     serializer_class = MediaSerializer
 
     def list(self, request):
-        q = self.filter_queryset(self.get_queryset())
-        serializer = MediaSerializer(q, many=True)
-        return Response(serializer.data)
+        # q = self.filter_queryset(self.get_queryset())
+        # serializer = MediaSerializer(q, many=True)
+
+        import json
+        ## LOAD DATA IN
+        with open("data.json", 'r') as f:
+            data = json.load(f)
+        return Response(data)
+
+        # import json
+        # data = serializer.data
+        # file_name = "data.json"
+        # # DUMP DATA OUT
+        # with open(file_name, 'w') as f:
+        #     json.dump(data, f)
+
+        # return Response(serializer.data)
 
     def retrieve(self, request, pk=None):
         video = Media.objects.get(lpid=pk, backend=create_jupiter_backend())

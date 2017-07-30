@@ -26,16 +26,20 @@ var VideoList = React.createClass({
         if (this.state.data) {
             console.log('DATA!')
             var videoNodes = this.state.data.map(function (video) {
-                return <li> {video.lpid} </li>
+                return (
+                    <tr key={video.apn}>
+                        <td> {video.name} </td>
+                        <td> {video.session_year}</td>
+                        <td> {video.category} </td>
+                        <td> {video.referenceid} </td>
+                        <td> {video.referencetype}</td>
+                    </tr>)
             })
         }
         return (
-            <div>
-                <h1>Video List</h1>
-                <ul>
-                    {videoNodes}
-                </ul>
-            </div>
+            <tbody>
+              {videoNodes}
+            </tbody>
         )
     }
 })

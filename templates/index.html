@@ -1,11 +1,16 @@
+{% extends 'base.html' %}
 {% load render_bundle from webpack_loader %}
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Video List</title>
-    </head>
-    <body>
-        <div id="container"></div>
+{% block content %}
+    <table id="container">
+        <thead>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Session Year</th>
+        <th>Reference ID</th>
+        <th>Reference Type</th>
+        </thead>
+        <tbody>
         {% render_bundle 'main' %}
-    </body>
-</html>
+        </tbody>
+    </table>
+{% endblock %}
